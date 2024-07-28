@@ -1,0 +1,13 @@
+<configuration name="ConfigTest" status="ERROR" monitorInterval="5">
+    <appenders>
+        <file name="fileAppender" fileName="A:/WebLogs/payments.log">
+            <patternLayout pattern="%d{ABSOLUTE} [%-5p] (%F:%L) - %m%n" />
+        </file>
+    </appenders>
+
+    <loggers>
+        <root level="warn">
+            <appenderRef ref="fileAppender" />
+        </root>
+    </loggers>
+</configuration>
