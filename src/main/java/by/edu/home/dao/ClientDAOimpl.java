@@ -1,6 +1,5 @@
 package by.edu.home.dao;
 
-import by.edu.home.configuration.AppConfig;
 import by.edu.home.constant.Status;
 import by.edu.home.entity.*;
 import by.edu.home.transfer.*;
@@ -8,8 +7,6 @@ import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -23,8 +20,6 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ClientDAOimpl implements ClientDAO {
-
-    private final ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -420,7 +415,7 @@ public class ClientDAOimpl implements ClientDAO {
 
 
     private AccountDTO convertToDTO(Account account) {
-        AccountDTO accountDTO = context.getBean("accountDTO", AccountDTO.class);
+        AccountDTO accountDTO = new AccountDTO();
         accountDTO.setAccountId(account.getAccountId());
         accountDTO.setStatus(String.valueOf(account.getStatus()));
         accountDTO.setName(account.getClient().getName());
@@ -432,7 +427,7 @@ public class ClientDAOimpl implements ClientDAO {
     }
 
     private CreditCardDTO convertToDTO(CreditCard card) {
-        CreditCardDTO cardDTO = context.getBean("creditCardDTO", CreditCardDTO.class);
+        CreditCardDTO cardDTO = new CreditCardDTO();
         cardDTO.setCardId(card.getCardId());
         cardDTO.setCardNumber(card.getCardNumber());
         cardDTO.setExpirationDate(card.getExpirationDate());
@@ -442,7 +437,7 @@ public class ClientDAOimpl implements ClientDAO {
     }
 
     private AdminDTO convertToDTO(Administrator admin) {
-        AdminDTO adminDTO = context.getBean("adminDTO", AdminDTO.class);
+        AdminDTO adminDTO = new AdminDTO();
         adminDTO.setId(admin.getAdminId());
         adminDTO.setName(admin.getName());
         adminDTO.setRole(admin.getRole());
@@ -450,7 +445,7 @@ public class ClientDAOimpl implements ClientDAO {
     }
 
     private PaymentDTO convertToDTO(Payment payment) {
-        PaymentDTO paymentDTO = context.getBean("paymentDTO", PaymentDTO.class);
+        PaymentDTO paymentDTO = new PaymentDTO();
         paymentDTO.setName(payment.getAccount().getClient().getName());
         paymentDTO.setEmail(payment.getAccount().getClient().getEmail());
         paymentDTO.setPhone(payment.getAccount().getClient().getPhone());
