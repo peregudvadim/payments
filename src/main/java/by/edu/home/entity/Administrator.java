@@ -80,4 +80,29 @@ public class Administrator {
         this.password = password;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Administrator that = (Administrator) o;
+
+        if (adminId != that.adminId) return false;
+        if (!name.equals(that.name)) return false;
+        if (!email.equals(that.email)) return false;
+        if (!phone.equals(that.phone)) return false;
+        if (!password.equals(that.password)) return false;
+        return role.equals(that.role);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = adminId;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + phone.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + role.hashCode();
+        return result;
+    }
 }

@@ -31,11 +31,11 @@ public class ClientDAOimpl implements ClientDAO {
 
         Client isExistClient = findClientByEmail(client.getEmail());
         if (isExistClient != null) {
-            throw new IllegalArgumentException("Клиент с таким email уже существует");
+            throw new IllegalArgumentException("A client with this email already exists");
         } else {
             isExistClient = findClientByPhone(client.getPhone());
             if (isExistClient != null) {
-                throw new IllegalArgumentException("Клиент с таким номером телефона уже существует");
+                throw new IllegalArgumentException("A client with this phone number already exists");
             }
         }
 
@@ -132,7 +132,7 @@ public class ClientDAOimpl implements ClientDAO {
         Session session = sessionFactory.getCurrentSession();
         Client client = session.get(Client.class, clientId);
         if (client == null) {
-            throw new IllegalArgumentException("Пользователь не найден");
+            throw new IllegalArgumentException("User not found");
         }
 
         Account account = new Account();
@@ -166,14 +166,14 @@ public class ClientDAOimpl implements ClientDAO {
         Client client = query.uniqueResult();
 
         if (client == null) {
-            throw new IllegalArgumentException("Пользователь не найден");
+            throw new IllegalArgumentException("User not found");
         } else {
             String hashedPassword = client.getPassword();
 
             if (BCrypt.checkpw(password, hashedPassword)) {
                 return client.getAccount().getAccountId();
             } else {
-                throw new IllegalArgumentException("Неверный пароль");
+                throw new IllegalArgumentException("Invalid password");
             }
         }
     }
@@ -337,7 +337,7 @@ public class ClientDAOimpl implements ClientDAO {
 
         BigDecimal newBalance = creditCard.getBalance().subtract(amount);
         if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Недостаточно денег на карте");
+            throw new IllegalArgumentException("Not enough money on the card");
         }
 
         creditCard.setBalance(creditCard.getBalance().subtract(amount));

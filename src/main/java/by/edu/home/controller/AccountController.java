@@ -37,10 +37,10 @@ public class AccountController {
             int accountId = (int) session.getAttribute("accountId");
             String message = "";
             if (clientService.blockAccount(accountId)) {
-                message = "Аккаунт заблокирован";
+                message = "Account has been blocked";
             } else {
-                message = "Аккаунт не получилось заблокировать";
-                redirectAttributes.addFlashAttribute("message", "Аккаунт не получилось заблокировать");
+                message = "Account could not be blocked";
+                redirectAttributes.addFlashAttribute("message", message);
             }
             AccountDTO accountDTO = clientService.getAccountByID(accountId);
             redirectAttributes.addFlashAttribute("account", accountDTO);
@@ -60,9 +60,9 @@ public class AccountController {
             int accountId = (int) session.getAttribute("accountId");
             String message = "";
             if (clientService.blockCard(cardId)) {
-                message = "Карта заблокирована";
+                message = "Card has been blocked";
             } else {
-                message = "Карту не получилось заблокировать";
+                message = "Card could not be blocked";
             }
             redirectAttributes.addFlashAttribute("message", message);
             return "redirect:/viewCreditCards";
@@ -85,15 +85,15 @@ public class AccountController {
             int accountId = (int) session.getAttribute("accountId");
             String message = "";
             if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-                message = "Сумма должна быть больше 0";
+                message = "Amount must be greater than 0";
                 redirectAttributes.addFlashAttribute("message", message);
                 return "redirect:/viewCreditCards";
             }
 
             if (clientService.addMoneyToCard(cardId, amount)) {
-                message = "Добавлено " + amount + " $";
+                message = "Added " + amount + " $";
             } else {
-                message = "Ошибка операции";
+                message = "Error operation";
             }
             redirectAttributes.addFlashAttribute("message", message);
             return "redirect:/viewCreditCards";
@@ -131,10 +131,10 @@ public class AccountController {
         String message = "";
         int accountId = (int) session.getAttribute("accountId");
         if (clientService.addMoney(accountId, amount)) {
-            message = "Добавлено " + amount + " $";
+            message = "Added " + amount + " $";
 
         } else {
-            message = "Не добавилось ничего";
+            message = "Nothing added";
         }
         AccountDTO accountDTO = clientService.getAccountByID(accountId);
         redirectAttributes.addFlashAttribute("message", message);
@@ -195,21 +195,21 @@ public class AccountController {
         try{
         String message = "";
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            message = "Сумма не может быть меньше либо равна 0";
+            message = "Amount cannot be less than or equal to 0";
             redirectAttributes.addFlashAttribute("message", message);
             return "redirect:/viewCreditCards";
         }
         try {
             CreditCard creditCard = clientService.getCreditCardById(creditCardId);
             if (creditCard == null || !creditCard.getCvv().equals(cvv)) {
-                message = "Неверный cvv";
+                message = "Invalid cvv";
                 redirectAttributes.addFlashAttribute("message", message);
                 return "redirect:/viewCreditCards";
             }
             if (clientService.paymentByCard(creditCardId, amount)) {
-                message = "Операция прошла успешно";
+                message = "The operation was successful";
             } else {
-                message = "Ошибка операции";
+                message = "Operation error";
 
             }
         } catch (IllegalArgumentException e) {
@@ -231,9 +231,9 @@ public class AccountController {
         try{
         int accountId = (int) session.getAttribute("accountId");
         if (clientService.addNewCreditCard(accountId)) {
-            redirectAttributes.addFlashAttribute("message", "Карта добавлена");
+            redirectAttributes.addFlashAttribute("message", "Card added");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Карта не добавлена");
+            redirectAttributes.addFlashAttribute("message", "Card not added");
         }
         return "redirect:/viewCreditCards";
         } catch (Exception e) {

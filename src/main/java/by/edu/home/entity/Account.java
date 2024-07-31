@@ -127,4 +127,34 @@ public class Account {
         }
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Account account = (Account) o;
+
+        if (accountId != account.accountId) return false;
+        if (!balance.equals(account.balance)) return false;
+        if (status != account.status) return false;
+        if (!createdAt.equals(account.createdAt)) return false;
+        if (!accountNumber.equals(account.accountNumber)) return false;
+        if (!payments.equals(account.payments)) return false;
+        if (!creditCards.equals(account.creditCards)) return false;
+        return client.equals(account.client);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = accountId;
+        result = 31 * result + balance.hashCode();
+        result = 31 * result + status.hashCode();
+        result = 31 * result + createdAt.hashCode();
+        result = 31 * result + accountNumber.hashCode();
+        result = 31 * result + payments.hashCode();
+        result = 31 * result + creditCards.hashCode();
+        result = 31 * result + client.hashCode();
+        return result;
+    }
 }

@@ -45,12 +45,12 @@ public class SignRegController {
         String message = "";
         try {
             clientService.registration(client);
-            message = "Регистрация прошла успешно";
+            message = "Registration was successful";
         } catch (IllegalArgumentException e) {
             message = e.getMessage();
             LOGGER.warn(e.getMessage());
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "ОШИБКА РЕГИСТРАЦИИ");
+            redirectAttributes.addFlashAttribute("error", "REGISTRATION ERROR");
             if (session != null) {
                 session.invalidate();
             }
@@ -118,7 +118,7 @@ public class SignRegController {
                 if (session != null) {
                     session.invalidate();
                 }
-                redirectAttributes.addFlashAttribute("message", "Неверный код доступа.");
+                redirectAttributes.addFlashAttribute("message", "Invalid access code");
                 return "redirect:/";
             }
         } catch (Exception e) {

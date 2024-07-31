@@ -31,7 +31,7 @@
 
         <c:if test="${empty fileContent}">
             <div class="alert alert-info" role="alert">
-                Логи не найдены или файл пуст.
+                Logs not found or file is empty.
             </div>
         </c:if>
 

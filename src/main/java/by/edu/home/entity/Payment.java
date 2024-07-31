@@ -63,5 +63,27 @@ public class Payment {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Payment payment = (Payment) o;
+
+        if (paymentId != payment.paymentId) return false;
+        if (!amount.equals(payment.amount)) return false;
+        if (!paymentDate.equals(payment.paymentDate)) return false;
+        return account.equals(payment.account);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = paymentId;
+        result = 31 * result + amount.hashCode();
+        result = 31 * result + paymentDate.hashCode();
+        result = 31 * result + account.hashCode();
+        return result;
+    }
 }
 

@@ -118,5 +118,33 @@ public class CreditCard {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        CreditCard that = (CreditCard) o;
+
+        if (cardId != that.cardId) return false;
+        if (!cardNumber.equals(that.cardNumber)) return false;
+        if (!expirationDate.equals(that.expirationDate)) return false;
+        if (!cvv.equals(that.cvv)) return false;
+        if (!createdAt.equals(that.createdAt)) return false;
+        if (status != that.status) return false;
+        if (!balance.equals(that.balance)) return false;
+        return account.equals(that.account);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cardId;
+        result = 31 * result + cardNumber.hashCode();
+        result = 31 * result + expirationDate.hashCode();
+        result = 31 * result + cvv.hashCode();
+        result = 31 * result + createdAt.hashCode();
+        result = 31 * result + status.hashCode();
+        result = 31 * result + balance.hashCode();
+        result = 31 * result + account.hashCode();
+        return result;
+    }
 }

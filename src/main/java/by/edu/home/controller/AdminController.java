@@ -32,9 +32,9 @@ public class AdminController {
     @RequestMapping("warn")
     public String getWarn(RedirectAttributes redirectAttributes) {
         try {
-            throw new IllegalArgumentException("Проверочное предупреждение");
+            throw new IllegalArgumentException("Verification warning");
         } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("message","Получено проверочное предупреждение");
+            redirectAttributes.addFlashAttribute("message","Verification warning received");
             LOGGER.warn(e.getMessage());
         }
         return "redirect:/";
@@ -44,9 +44,9 @@ public class AdminController {
     @RequestMapping("error")
     public String getError(RedirectAttributes redirectAttributes) {
         try {
-            throw new Exception("Проверочная ошибка");
+            throw new Exception("Verification error");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error","Получена проверочная ошибка");
+            redirectAttributes.addFlashAttribute("error","Verification error received");
             LOGGER.error(e.getMessage());
         }
         return "redirect:/";
@@ -104,9 +104,9 @@ public class AdminController {
         try {
             String message = "";
             if (clientService.changeAccountStatus(accountId, status)) {
-                message = "статус аккаунта изменен";
+                message = "account status has been changed";
             } else {
-                message = "не удалось изменить статус аккаунта";
+                message = "failed to change account status";
             }
             redirectAttributes.addFlashAttribute("message", message);
             redirectAttributes.addFlashAttribute("phone", phone);
@@ -129,9 +129,9 @@ public class AdminController {
         try {
             String message = "";
             if (clientService.changeCardStatus(cardId, status)) {
-                message = "статус карты " + cardNumber + " изменен";
+                message = "card status " + cardNumber + " has been changed";
             } else {
-                message = "не удалось изменить статус карты " + cardNumber;
+                message = "failed to change card status " + cardNumber;
             }
             redirectAttributes.addFlashAttribute("message", message);
             redirectAttributes.addFlashAttribute("phone", phone);
